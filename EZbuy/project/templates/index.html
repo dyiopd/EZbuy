@@ -28,9 +28,26 @@
 		<div class="w3ls-header"><!--header-one--> 
 			<div class="w3ls-header-right">
 				<ul>
-					<li class="dropdown head-dpdn">
-						<a href="signin.html" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Sign In</a>
-					</li>
+					{% if username == "sign in" %}
+						<li class="dropdown head-dpdn">
+							<a href="signin/" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
+						</li>
+					{% else %}
+						<li class="dropdown head-dpdn">
+							<a  aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
+						</li>
+					{% endif %}
+
+					{% if username == "sign in" %}
+
+					{% else %}
+						<li class="dropdown head-dpdn">
+							<a href="quit/"></i> signout</a>
+						</li>
+					{% endif %}
+
+
+					
 					
 						<div class="header-right">			
 	<!-- Large modal -->
@@ -44,7 +61,7 @@
 		<div class="container">
 			<div class="agile-its-header">
 				<div class="logo">
-					<h1><a href="index.html"><span>EZ</span>buy</a></h1>
+					<h1><a href="index/"><span>EZ</span>buy</a></h1>
 				</div>
 				<div class="agileits_search">
 					<form action="#" method="post">
@@ -67,7 +84,11 @@
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
 					</form>
-				<a class="post-w3layouts-ad" href="post-ad.html">Post your items</a>
+				{% if username == "sign in" %}
+						
+					{% else %}
+						<a class="post-w3layouts-ad" href="post-ad.html">Post your items</a>
+					{% endif %}
 				</div>	
 				<div class="clearfix"></div>
 			</div>
@@ -83,7 +104,7 @@
 				<div class="container">
 					<div class="col-md-3">
 						<div class="focus-grid w3layouts-boder1">
-							<a class="btn-8" href="categories.html">
+							<a class="btn-8" href="mobiles/">
 								<div class="focus-border">
 									<div class="focus-layout">
 										<div class="focus-image"><i class="fa fa-mobile"></i></div>
@@ -95,7 +116,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="focus-grid w3layouts-boder2">	
-						<a class="btn-8" href="categories.html#parentVerticalTab2">
+						<a class="btn-8" href="electronics/">
 							<div class="focus-border">
 								<div class="focus-layout">
 									<div class="focus-image"><i class="fa fa-laptop"></i></div>
@@ -105,7 +126,7 @@
 						</a>
 					</div>
 					</div>
-					<div class="col-md-3">
+					<!-- <div class="col-md-3">
 					<div class="focus-grid w3layouts-boder3">
 						<a class="btn-8" href="categories.html#parentVerticalTab3">
 							<div class="focus-border">
@@ -116,7 +137,7 @@
 							</div>
 						</a>
 					</div>	
-					</div>
+					</div> -->
 					<div class="col-md-3">
 					<div class="focus-grid w3layouts-boder4">
 						<a class="btn-8" href="categories.html#parentVerticalTab4">
@@ -129,7 +150,7 @@
 						</a>
 					</div>	
 					</div>
-					<div class="col-md-3">
+					<!-- <div class="col-md-3">
 					<div class="focus-grid w3layouts-boder5">
 						<a class="btn-8" href="categories.html#parentVerticalTab5">
 							<div class="focus-border">
@@ -140,8 +161,8 @@
 							</div>
 						</a>
 					</div>
-					</div>
-					<div class="col-md-3">
+					</div> -->
+					<!-- <div class="col-md-3">
 					<div class="focus-grid w3layouts-boder6">
 						<a class="btn-8" href="categories.html#parentVerticalTab6">
 							<div class="focus-border">
@@ -152,20 +173,20 @@
 							</div>
 						</a>
 					</div>	
-					</div>
+					</div> -->
 					<div class="col-md-3">
 					<div class="focus-grid w3layouts-boder7">
 						<a class="btn-8" href="categories.html#parentVerticalTab7">
 							<div class="focus-border">
 								<div class="focus-layout">
 									<div class="focus-image"><i class="fa fa-book"></i></div>
-									<h4 class="clrchg">Books, Sports & Hobbies</h4>
+									<h4 class="clrchg">Books</h4>
 								</div>
 							</div>
 						</a>
 					</div>	
 					</div>
-					<div class="col-md-3">
+					<!-- <div class="col-md-3">
 					<div class="focus-grid w3layouts-boder8">
 						<a class="btn-8" href="categories.html#parentVerticalTab8">
 							<div class="focus-border">
@@ -224,7 +245,7 @@
 							</div>
 						</a>
 					</div>
-					</div>
+					</div> -->
 					<div class="clearfix"></div>
 				</div>
 			</div>

@@ -1,14 +1,15 @@
 from django.contrib import auth
 from django.shortcuts import render
 import django.contrib.auth
-from .models import *
 from django.contrib.auth.models import User
+from .models import *
 
 
 # Create your views here.
 
 def index(request):
     username = request.session.get('username', "sign in")
+    print(request.user.id)
     return render(request, 'index.html/', {'username': username})
 
 
@@ -26,6 +27,16 @@ def mobiles(request):
 
 def electronics(request):
     return render(request, 'electronics-appliances.html/')
+
+
+def post(request):
+    productCategory = request.POST.get('selects')
+    productName = request.POST.get('title')
+    productInformation = request.POST.get('description')
+    print(productCategory)
+
+    productImage = Products(productImage=request.FILES.get('img'))
+    return render(request, 'post.html/')
 
 
 # redirect
@@ -78,6 +89,21 @@ def login(request):
     return render(request, 'signin.html')
 
 
+def logout(request):
+    django.contrib.auth.logout(request),
+    return HttpResponseRedirect('/index')
+
+
+def category(request):
+    productCategory = request.POST.get('selects')
+    productName = request.POST.get('title')
+    productInformation = request.POST.get('description')
+    print(request.user.usernam)
+    create = Products.objects.creat(productName=productName, productInformation=productInformation,
+                                    productCategory=productCategory, buyer=request.user.id,
+                                    productImage=request.FILES.get('img'))
+    return render(request, 'post.html/')
+
 # def main(request):
 #     username = request.session.get('name', "log in")
 #     return render(request, 'main.html', {'username': username})
@@ -91,8 +117,3 @@ def login(request):
 #     username = request.POST.get('username')
 #     request.session['name'] = username
 #     return HttpResponseRedirect('/main')
-
-
-def logout(request):
-    django.contrib.auth.logout(request),
-    return HttpResponseRedirect('/index')

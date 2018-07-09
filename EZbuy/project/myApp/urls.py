@@ -20,6 +20,9 @@ urlpatterns = (
     # url to electronics page
     url(r'^index/electronics/$', views.electronics),
 
+    # # url to post item page
+    # url(r'^post/$', views.post),
+
     # redirect the url to sign up page
     url(r'^login/signup/$', views.redirectSignup),
 
@@ -58,5 +61,9 @@ urlpatterns = (
     url(r'^register/$', views.register),
 
     url(r'^login/$', views.login),
+
+    url(r'^post/$', views.post),
+
+    url(r'^category/$', views.category),
 
 )

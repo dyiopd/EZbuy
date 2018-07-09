@@ -66,4 +66,6 @@ urlpatterns = (
 
     url(r'^category/$', views.category),
 
+    url(r'^post/category/$', views.category),
+
 )

@@ -1,8 +1,10 @@
+import os
 from django.contrib import auth
 from django.shortcuts import render
-import django.contrib.auth
+from django.conf import settings
 from django.contrib.auth.models import User
 from .models import *
+import django.contrib.auth
 
 
 # Create your views here.
@@ -30,13 +32,8 @@ def electronics(request):
 
 
 def post(request):
-    productCategory = request.POST.get('selects')
-    productName = request.POST.get('title')
-    productInformation = request.POST.get('description')
-    print(productCategory)
-
-    productImage = Products(productImage=request.FILES.get('img'))
-    return render(request, 'post.html/')
+    username = request.session.get('username', "sign in")
+    return render(request, 'post.html/', {'username': username})
 
 
 # redirect
@@ -95,14 +92,14 @@ def logout(request):
 
 
 def category(request):
+    username = request.session.get('username', "sign in")
     productCategory = request.POST.get('selects')
     productName = request.POST.get('title')
     productInformation = request.POST.get('description')
-    print(request.user.usernam)
-    create = Products.objects.creat(productName=productName, productInformation=productInformation,
-                                    productCategory=productCategory, buyer=request.user.id,
-                                    productImage=request.FILES.get('img'))
-    return render(request, 'post.html/')
+    product = Products(productName=productName, productInformation=productInformation,
+                       productCategory=productCategory, productImage=request.FILES.get('img'), buyer=request.user)
+    product.save()
+    return render(request, 'post.html/', {'username': username})
 
 # def main(request):
 #     username = request.session.get('name', "log in")

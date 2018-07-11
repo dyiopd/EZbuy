@@ -70,15 +70,18 @@ urlpatterns = (
     
     #-- navigation around mobiles (edittedby sc)
     url(r'^index/mobiles.html/post-ad.html/$', views.redirectpostad),
+
+    url(r'^index/mobiles.html/index/$', views.redirectIndex),
 	
-	url(r'^index/mobiles.html/signin.html/$', views.redirectSignin),
+    url(r'postad/index/$', views.redirectIndex),
 	
-	url(r'^mobiles/index/$', views.redirectIndex),
+    url(r'^index/mobiles.html/signin.html/$', views.redirectSignin),
 	
-	url(r'^mobiles/mobiles/$', views.redirectmobiles),
+    url(r'^mobiles/index/$', views.redirectIndex),
 	
-	url(r'^([^S]+)/([^S]+)/post-ad.html/$', views.redirectpostad),
-    
+    url(r'^mobiles/mobiles/$', views.redirectmobiles),
+	
+    url(r'^([^S]+)/([^S]+)/post-ad.html/$', views.redirectpostad),
     #end of edit
 
 )

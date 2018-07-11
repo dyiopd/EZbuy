@@ -67,5 +67,18 @@ urlpatterns = (
     url(r'^category/$', views.category),
 
     url(r'^post/category/$', views.category),
+    
+    #-- navigation around mobiles (edittedby sc)
+    url(r'^index/mobiles.html/post-ad.html/$', views.redirectpostad),
+	
+	url(r'^index/mobiles.html/signin.html/$', views.redirectSignin),
+	
+	url(r'^mobiles/index/$', views.redirectIndex),
+	
+	url(r'^mobiles/mobiles/$', views.redirectmobiles),
+	
+	url(r'^([^S]+)/([^S]+)/post-ad.html/$', views.redirectpostad),
+    
+    #end of edit
 
 )

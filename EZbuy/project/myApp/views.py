@@ -35,6 +35,9 @@ def post(request):
     username = request.session.get('username', "sign in")
     return render(request, 'post.html/', {'username': username})
 
+def postad(request):
+	return render(request, 'post-ad.html/')
+
 
 # redirect
 from django.http import HttpResponseRedirect
@@ -50,6 +53,14 @@ def redirectSignin(request):
 
 def redirectIndex(request):
     return HttpResponseRedirect('/index')
+
+#added by sc
+def redirectpostad(request):
+	return HttpResponseRedirect('/postad')
+	
+def redirectmobiles(request):
+    return HttpResponseRedirect('/mobiles')
+#edit end
 
 
 def back(request):

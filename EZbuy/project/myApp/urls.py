@@ -15,7 +15,9 @@ urlpatterns = (
     url(r'^signin/$', views.signin),
 
     # url to mobile page
-    url(r'^index/mobiles/$', views.mobiles),
+    url(r'^index/mobiles/$', views.redirectMobile),
+
+    url(r'^mobiles/$', views.mobiles),
 
     # url to electronics page
     url(r'^index/electronics/$', views.electronics),
@@ -64,24 +66,26 @@ urlpatterns = (
 
     url(r'^post/$', views.post),
 
-    url(r'^category/$', views.category),
+    url(r'^index/post/$', views.redirectPost),
 
-    url(r'^post/category/$', views.category),
-    
-    #-- navigation around mobiles (edittedby sc)
-    url(r'^index/mobiles.html/post-ad.html/$', views.redirectpostad),
+    url(r'^post/post/$', views.redirectPost),
 
-    url(r'^index/mobiles.html/index/$', views.redirectIndex),
-	
-    url(r'postad/index/$', views.redirectIndex),
-	
-    url(r'^index/mobiles.html/signin.html/$', views.redirectSignin),
-	
-    url(r'^mobiles/index/$', views.redirectIndex),
-	
-    url(r'^mobiles/mobiles/$', views.redirectmobiles),
-	
-    url(r'^([^S]+)/([^S]+)/post-ad.html/$', views.redirectpostad),
-    #end of edit
+    url(r'^post/index/$', views.redirectIndex),
+
+    url(r'^post/quit/$', views.logout),
+
+    # url(r'^category/$', views.category),
+    #
+    # url(r'^post/category/$', views.category),
+
+    url(r'^mobiles/(\d+)/$', views.mobiles),
+
+    url(r'^mobiles/(\d+)/quit/$', views.logouts),
+
+    url(r'^index/mobiles/(\d+)/$', views.mobiles),
+
+    url(r'^index/mobiles/(\d+)/index/$', views.redirectsIndex),
+
+
 
 )

@@ -28,7 +28,9 @@ from django.contrib.auth.models import User
 #
 class Products(models.Model):
     productName = models.CharField(max_length=40)
+    productPrice = models.FloatField()  # gprice = models.DecimalField(max_digits=5, decimal_places=2)
     productInformation = models.CharField(max_length=100)
     productCategory = models.IntegerField()
     productImage = models.ImageField(upload_to='img')
+    isDelete = models.BooleanField(default=False)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -11,7 +11,6 @@ import django.contrib.auth
 
 def index(request):
     username = request.session.get('username', "sign in")
-    print(request.user.id)
     return render(request, 'index.html/', {'username': username})
 
 
@@ -23,20 +22,29 @@ def signup(request):
     return render(request, 'signup.html/')
 
 
-def mobiles(request):
-    return render(request, "mobiles.html/")
+def mobiles(request, sortid):
+    username = request.session.get('username', "sign in")
+    # productList = Products.objects.filter(productCategory='1')
+    print(sortid)
+
+    # sort
+    if sortid == '1':
+        print(sortid)
+        productList = Products.objects.filter(productCategory='1').order_by('productPrice')
+    if sortid == '0':
+        productList = Products.objects.filter(productCategory='1').order_by('-productPrice')
+
+    return render(request, "mobiles.html/", {'productList': productList, 'username': username})
 
 
 def electronics(request):
+    username = request.session.get('username', "sign in")
     return render(request, 'electronics-appliances.html/')
 
 
 def post(request):
     username = request.session.get('username', "sign in")
     return render(request, 'post.html/', {'username': username})
-
-def postad(request):
-	return render(request, 'post-ad.html/')
 
 
 # redirect
@@ -54,13 +62,17 @@ def redirectSignin(request):
 def redirectIndex(request):
     return HttpResponseRedirect('/index')
 
-#added by sc
-def redirectpostad(request):
-	return HttpResponseRedirect('/postad')
-	
-def redirectmobiles(request):
+
+def redirectsIndex(request, sortid):
+    return HttpResponseRedirect('/index')
+
+
+def redirectMobile(request):
     return HttpResponseRedirect('/mobiles')
-#edit end
+
+
+def redirectPost(request):
+    return HttpResponseRedirect('/post')
 
 
 def back(request):
@@ -102,12 +114,18 @@ def logout(request):
     return HttpResponseRedirect('/index')
 
 
+def logouts(request, sortid):
+    django.contrib.auth.logout(request),
+    return HttpResponseRedirect('/index')
+
+
 def category(request):
     username = request.session.get('username', "sign in")
     productCategory = request.POST.get('selects')
     productName = request.POST.get('title')
+    productPrice = request.POST.get('price')
     productInformation = request.POST.get('description')
-    product = Products(productName=productName, productInformation=productInformation,
+    product = Products(productName=productName, productPrice=productPrice, productInformation=productInformation,
                        productCategory=productCategory, productImage=request.FILES.get('img'), buyer=request.user)
     product.save()
     return render(request, 'post.html/', {'username': username})

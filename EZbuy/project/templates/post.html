@@ -110,7 +110,7 @@
 				{% if username == "sign in" %}
 						
 				{% else %}
-					<a class="post-w3layouts-ad" href="post-ad.html">Post your items</a>
+					<a class="post-w3layouts-ad" href="post/">Post your items</a>
 				{% endif %}
 				</div>	
 				<div class="clearfix"></div>
@@ -130,7 +130,7 @@
 		<div class="container">
 			<h2 class="w3-head">Post an Ad</h2>
 			<div class="post-ad-form">
-				<form action="" method="POST" enctype="multipart/form-data">
+				<form action="/category/" method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 					<label>Select Category </label>
 					<select class="" name="selects">
@@ -146,12 +146,16 @@
 					<input name="title" type="text" class="phone" placeholder="">
 					<div class="clearfix"></div>
 
+					<label>Ad price</label>
+					<input type="text" name="price" placeholder="your item's price">
+
 					<label>Ad Description </label>
 					<textarea name="description" class="mess" placeholder="Write few lines about your product"></textarea>
 					<div class="clearfix"></div>
 
 					<label>Upload photo </label>
 					<div class="photos-upload-view">
+						<input type="file" name="img">
 
 						<!-- <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
 
@@ -165,10 +169,10 @@
 
 
 
-						<form action="" method="post" enctype="multipart/form-data">
+						<!-- <form action="" method="post" enctype="multipart/form-data">
         					{% csrf_token %}
         					<input type="file" name="img">
-    					</form>
+    					</form> -->
 					</div>
 
 					<input type="submit" value="Post">

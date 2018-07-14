@@ -119,6 +119,7 @@ def logouts(request, sortid):
     return HttpResponseRedirect('/index')
 
 
+# create a product when user post an item through post.html
 def category(request):
     username = request.session.get('username', "sign in")
     productCategory = request.POST.get('selects')

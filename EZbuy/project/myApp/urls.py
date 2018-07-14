@@ -74,9 +74,9 @@ urlpatterns = (
 
     url(r'^post/quit/$', views.logout),
 
-    # url(r'^category/$', views.category),
-    #
-    # url(r'^post/category/$', views.category),
+    url(r'^category/$', views.category),
+
+    url(r'^post/category/$', views.redirectIndex),
 
     url(r'^mobiles/(\d+)/$', views.mobiles),
 

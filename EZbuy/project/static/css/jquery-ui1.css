@@ -45,10 +45,6 @@
 .ui-spinner-down { bottom: 0; }
 
 
-
-/* Fades and background-images don't work well together in IE6, drop the image */
-/* Component containers
-----------------------------------*/
 .ui-widget { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1.1em/*{fsDefault}*/; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1em; }
@@ -57,8 +53,6 @@
 .ui-widget-header { background: rgba(0, 153, 229, 0.78); color: #222222/*{fcHeader}*/; font-weight: bold; }
 .ui-widget-header a { color: #222222/*{fcHeader}*/; }
 
-/* Interaction states
-----------------------------------*/
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 0px solid #ff5d56/*{borderColorDefault}*/;
   background: rgb(255, 137, 137);

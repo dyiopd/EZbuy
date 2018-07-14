@@ -21,10 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'hh-&eus06*m%3bvewwur(wgy#gi(4v^pn&f46#=qnvx^n0bevp'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -65,7 +68,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",

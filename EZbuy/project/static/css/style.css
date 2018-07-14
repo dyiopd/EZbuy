@@ -346,9 +346,6 @@ ul.cd-dropdown-content li {
 .w3ls-header-right ul li a i.fa {
     margin-right: 5px;
 }
-i.fa.fa-language,i.fa.fa-globe {
-    margin-right: 7px!important;
-}
 .dropdown-menu > li > a { 
     color: #999; 
 }
@@ -2418,26 +2415,6 @@ h3.agileits-icons-title {
 /*-- //icons --*/
 
 /*-- Regions --*/
-.region-block:nth-child(even) {
-    background-color: rgba(0, 153, 229, 0.06);
-}
-.sun-regions ul li {
-	display:inline-block;
-	width:24%;
-	margin:0 0 5px 0;
-}
-.sun-regions ul li a {
-	color: #4A4949;
-    font-size: 14px;
-    text-decoration: none;
-    text-transform: capitalize;
-}
-.sun-regions ul li a:hover {
-	color:#0099e5;
-}
-.region-block {
-    padding: 40px 0px;
-}
 .state h3 {
     color: #ff4c4c;
     font-size: 20px;
@@ -2547,31 +2524,6 @@ a.tag20 {
 .tags p {
     font-size: 1.2em;
 }
-.popular-regions {
-	background:#F9F9F9;
-	padding:40px 0;
-	margin-top:40px;
-}
-.popular-regions h4 {
-	color: #ff4c4c;
-    font-size: 25px;
-    margin-bottom: 20px;
-}
-.popular-regions ul li {
-    display: inline-block;
-    width: 20%;
-    margin: 0 0 5px 0;
-	float:left;
-}
-.popular-regions ul li a {
-    color: #4A4949;
-    font-size: 13px;
-    text-decoration: none;
-    text-transform: capitalize;
-}
-.popular-regions ul li a:hover {
-	color:#0099e5;
-}
 h4.mpcwc {
 	margin-top:40px;
 }
@@ -2600,50 +2552,9 @@ h4.mpcwc {
     width: 20%;
     float: left;
 }
-/*-- //Popular-searches --*/
 
-/*-- sitemap-searches --*/
-.sitemap-regions {
-	background:#F9F9F9;
-	padding:0 0 40px 0;
-}
-.sitemap-regions h4 {
-	color: #ff4c4c;
-    font-size: 25px;
-    margin-bottom: 5px;
-}
-.sitemap-regions ul li {
-    list-style-type:none;
-    margin: 0 0 5px 0;
-}
-.sitemap-regions ul li a {
-    color: #4A4949;
-    font-size: 13px;
-    text-decoration: none;
-    text-transform: capitalize;
-}
-.sitemap-regions ul li a:hover {
-	color:#0099e5;
-}
-.sitemap-regions ul li.left-gap {
-	margin:-2px 0 0 15px;
-}
-.sitemap-region{
-	margin-top:40px;
-}
-.sitemap-region ul {
-    margin-left: 10px;
-}
-.sitemap-region-grid {
-    width: 33.33%;
-    float: left;
-}
-/*-- //sitemap-searches --*/
 
 /*-- terms of use --*/
-.terms {
-    padding-bottom: 40px;
-}
 .panel-default {
     border-color: #FFF;
 }
@@ -4585,9 +4496,6 @@ label {
 		min-height: 350px;
 		padding: 90px 0 0 0;
 	}
-	.region-block {
-		padding: 30px 0px;
-	}
 	.portfolio-description h4 a {
 		font-size: 19px;
 	}
@@ -4857,9 +4765,6 @@ label {
 		font-size: 1.05em;
 	}
 	.popular-category {
-		width: 25%;
-	}
-	.popular-regions ul li {
 		width: 25%;
 	}
 	p.post-terms {
@@ -5175,14 +5080,7 @@ label {
 		width: 25%;
 		float: left;
 	}
-	.sun-regions.col-md-9 {
-		width: 75%;
-		float: left;
-	}
 	.popular-category {
-		width: 33.333%;
-	}
-	.popular-regions ul li {
 		width: 33.333%;
 	}
 	.popular-category:nth-child(3){
@@ -5574,9 +5472,6 @@ label {
 	#custom-search-input {
 		width: 48.5%;
 	}
-	.sitemap-region-grid {
-		width: 50%;
-	}
 	.feed-back h3 {
 		font-size: 22px;
 	}
@@ -5798,9 +5693,6 @@ label {
 	}
 	.w3ls-header-right ul li a i.fa {
 		margin-right: 0px;
-	}
-	i.fa.fa-language, i.fa.fa-globe {
-		margin-right: 4px!important;
 	}
 	.w3ls-header-right {
 		width: 65%;
@@ -6042,16 +5934,6 @@ label {
 	.state h3 {
 		font-size: 19px;
 	}
-	.sun-regions ul li {
-		width: 32%;
-		margin: 0 0 5px 0;
-	}
-	.sun-regions ul li a {
-		font-size: 13px;
-	}
-	.region-block {
-		padding: 25px 0px;
-	}
 	.post-ad-form form label {
 		width: 100%;
 		display: block;
@@ -6153,9 +6035,6 @@ label {
 	.happy-clients-grid p {
 		font-size: 12.5px;
 	}
-	.sitemap-regions h4 {
-		font-size: 22px;
-	}
 	p.m_13 {
 		font-size: 13px;
 		line-height: 26px;
@@ -6173,9 +6052,6 @@ label {
 		padding: 7px 35px;
 		font-size: 17px;
 	}
-	.popular-regions ul li {
-		width: 50%;
-	}	
 	.popular-category {
 		width: 50%;
 	}
@@ -6274,9 +6150,6 @@ label {
 	}
 	.w3ls-header-right ul li a i.fa {
 		margin-right: 3px;
-	}
-	i.fa.fa-language, i.fa.fa-globe {
-		margin-right: 6px!important;
 	}
 	.w3ls-header-left {
 		float: none;
@@ -6420,9 +6293,6 @@ label {
 		width: 100%;
 		margin-bottom: 5%;
 	}
-	.sun-regions ul li {
-		width: 49%;
-	}
 	.item-price:before {
 		left: 27.5%;
 		border-right-width: 49px;
@@ -6494,13 +6364,6 @@ label {
 	.w3-categories h3 {
 		margin-bottom: 20px;
 	}
-	.agileinfo-dwld-app h6 {
-		margin-top: 30px;
-		letter-spacing: 1px;
-	}
-	.wthree-help textarea {
-		width: 90%;
-	}
 	.forgot a,.agileinfo_signin label.checkbox  {
 		font-size: 13px;
 	}
@@ -6562,9 +6425,6 @@ label {
 	.breadcrumb>li+li:before {
 		padding: 0 3px;
 	}
-	.sitemap-region-grid {
-		width: 100%;
-	}
 	span.total {
 		font-size: 12px;
 		padding: 8px 15px;
@@ -6582,9 +6442,6 @@ label {
 	.faq-list_h {
 		margin: 0 0 10px;
 		padding: 0 0 0 25px;
-	}
-	.popular-regions ul li {
-		width: 100%;
 	}
 	.popular-category {
 		width: 100%;
@@ -6621,21 +6478,8 @@ label {
 	.signin {
 		padding: 2em 1.5em;
 	}
-	.sitemap-region ul {
-		margin-left: 0;
-	}
 	.agileits_search input[type="text"] {
 		width: 56%;
-	}
-	.wthree-mobile-app form input[type="submit"] {
-		padding: 13px 0px;
-	}
-	.wthree-mobile-app form input[type="submit"] {
-		margin-left: 20%;
-		width: 60%;
-	}
-	.wthree-mobile-app {
-		margin: 35px auto 0px;
 	}
 	form#filldetails {
 		width: 100%;
@@ -6745,9 +6589,6 @@ label {
 		display: block;
 		margin-right:0;
 		width: 100%;
-	}
-	.selectregion {
-		float: none;
 	}
 	.select-box {
 		padding: 25px 15px;

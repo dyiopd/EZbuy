@@ -34,3 +34,8 @@ class Products(models.Model):
     productImage = models.ImageField(upload_to='img')
     isDelete = models.BooleanField(default=False)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Comments(models.Model):
+    description = models.CharField(max_length=200)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)

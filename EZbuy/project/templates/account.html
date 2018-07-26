@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Post Ad</title>
+<title>Mobiles</title>
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"><!-- bootstrap-CSS -->
 <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}"><!-- bootstrap-select-CSS -->
 <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" /><!-- style.css -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui1.css' %}">
 <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" /><!-- fontawesome-CSS -->
 <link rel="stylesheet" href="{% static 'css/menu_sideslide.css' %}" type="text/css" media="all"><!-- Navigation-CSS -->
 <!-- meta tags -->
@@ -13,10 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //meta tags -->
-<!--<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>-->		
-<!-- js -->
+
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 <!-- js -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -42,12 +40,38 @@
     });
   });
 </script>
-<!-- language-select -->
-<!-- //language-select -->
+<!-- switcher-grid and list alignment -->
+<script src="{% static 'js/tabs.js' %}"></script>	
+<script type="text/javascript">
+$(document).ready(function () {    
+var elem=$('#container ul');      
+	$('#viewcontrols a').on('click',function(e) {
+		if ($(this).hasClass('gridview')) {
+			elem.fadeOut(1000, function () {
+				$('#container ul').removeClass('list').addClass('grid');
+				$('#viewcontrols').removeClass('view-controls-list').addClass('view-controls-grid');
+				$('#viewcontrols .gridview').addClass('active');
+				$('#viewcontrols .listview').removeClass('active');
+				elem.fadeIn(1000);
+			});						
+		}
+		else if($(this).hasClass('listview')) {
+			elem.fadeOut(1000, function () {
+				$('#container ul').removeClass('grid').addClass('list');
+				$('#viewcontrols').removeClass('view-controls-grid').addClass('view-controls-list');
+				$('#viewcontrols .gridview').removeClass('active');
+				$('#viewcontrols .listview').addClass('active');
+				elem.fadeIn(1000);
+			});									
+		}
+	});
+});
+</script>
+<!-- //switcher-grid and list alignment -->
 </head>
 <body>
 	<!-- Navigation -->
-	
+		
 		<!-- //Navigation -->
 	<!-- header -->
 	<header>
@@ -56,7 +80,7 @@
 				<ul>
 					{% if username == "sign in" %}
 						<li class="dropdown head-dpdn">
-							<a href="signin/" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
+							<a href="/signin/" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
 						</li>
 					{% else %}
 						<li class="dropdown head-dpdn">
@@ -68,13 +92,15 @@
 
 					{% else %}
 						<li class="dropdown head-dpdn">
-							<a href="quit/"></i> signout</a>
+							<a href="/quit/"></i> signout</a>
 						</li>
 					{% endif %}
-					<li class="dropdown head-dpdn">
+
+
+					
+					
 						<div class="header-right">		
 	<!-- Large modal -->
-		</div>
 					</li>
 				</ul>
 			</div>
@@ -84,90 +110,119 @@
 		<div class="container">
 			<div class="agile-its-header">
 				<div class="logo">
-					<h1><a href="index/"><span>EZ</span>buy</a></h1>
+					<h1><a href="/index/"><span>EZ</span>buy</a></h1>
 				</div>
 				<div class="agileits_search">
-					<form action="search" method="GET">
-						<input name="Search" type="text" placeholder="How can we help you today?" required=" ">
+					<form action="/search/" method="GET">
+						{% csrf_token %}
+						<input name="Search" type="text" placeholder="How can we help you today?" required="" />
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
 					</form>
+
 				{% if username == "sign in" %}
 						
 				{% else %}
-					<a class="post-w3layouts-ad" href="post/">Post your items</a>
+					<a class="post-w3layouts-ad" href="/comments/">Make a comment</a>
 				{% endif %}
-				</div>	
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</header>
+
 	<!-- //header -->
 	<!-- breadcrumbs -->
 	<div class="w3layouts-breadcrumbs text-center">
 		<div class="container">
-			<span class="agile-breadcrumbs"><a href="index/"><i class="fa fa-home home_1"></i></a> / <span>Post your Ad</span></span>
+			<span class="agile-breadcrumbs">
+			<a href="/index/"><i class="fa fa-home home_1"></i></a>
+			<span>Account</span></span>
 		</div>
 	</div>
 	<!-- //breadcrumbs -->
-	<!-- Submit Ad -->
-	<div class="submit-ad main-grid-border">
+	<!-- Mobiles -->
+	{% if username == "sign in" %}
+		<head>Please sign in first</head>
+	{% else %}
+		<div class="total-ads main-grid-border">
 		<div class="container">
-			<h2 class="w3-head">Post an Ad</h2>
-			<div class="post-ad-form">
-				<form action="/category/" method="POST" enctype="multipart/form-data">
-					{% csrf_token %}
-					<label>Select Category </label>
-					<select class="" name="selects">
-					  <option value="0">Select Category</option>
-					  <option value="1">Mobiles</option>
-					  <option value="2">Electronics and Appliances</option>
-					  <option value="3">Bikes</option>
-					  <option value="4">Books</option>
-					</select>
-					<div class="clearfix"></div>
+			<div class="ads-grid">
+				<div class="side-bar col-md-3">
+					<div class="search-hotel">
+					<h3 class="agileits-sear-head">Name contains</h3>
+					<form>
+						<input type="text" value="Product name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+						<input type="submit" value=" ">
+					</form>
+				</div>
+				
+				<!-- <div class="side-bar col-md-3"> -->
+					<div class="search-hotel">
+						<h3 class="agileits-sear-head">Comments you got</h3>
+						<ol>
+								<li>
+									<h5> a very nice shopping experience with this sellers, worth choice and want to buy this again without emotions</h5>
+								</li>
+								<li>
+									<a href="/mobiles/{{number}}/1/">price from low to high</a>
+								</li>
 
-					<label>Ad Title </label>
-					<input name="title" type="text" class="phone" placeholder="">
-					<div class="clearfix"></div>
-
-					<label>Ad price</label>
-					<input type="text" name="price" placeholder="your item's price">
-
-					<label>Ad Description </label>
-					<textarea name="description" class="mess" placeholder="Write few lines about your product"></textarea>
-					<div class="clearfix"></div>
-
-					<label>Upload photo </label>
-					<div class="photos-upload-view">
-						<input type="file" name="img">
-
-						<!-- <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-
-						<div>
-							<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
-						</div>
-
-						<div id="submitbutton">
-							<button type="submit">Upload Files</button>
-						</div> -->
-
-
-
-						<!-- <form action="" method="post" enctype="multipart/form-data">
-        					{% csrf_token %}
-        					<input type="file" name="img">
-    					</form> -->
+						</ul>
 					</div>
-
-					<input type="submit" value="Post">
-				</form>
-
+				 <!-- </div> -->
+				<div class="clearfix"></div>
+				
+				
+				</div>
+				<div class="agileinfo-ads-display col-md-9">
+					<div class="wrapper">					
+					
+					  <div id="myTabContent" class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+						   <div>
+												<div id="container">
+								<div class="view-controls-list" id="viewcontrols">
+									<label>Products posted by you:</label>
+								</div>
+								<div class="clearfix"></div>
+							<ul class="list">
+								{% for product in productList %}
+									<li>
+										<a href="/single/{{product.id}}/">
+											<img src="{{product.productImage.url}}" />
+											<section class="list-left">
+												<h5 class="title">{{product.productName}}</h5>
+												<span class="adprice">${{product.productPrice}}</span>
+											</section>
+											<div class="clearfix"></div>
+											<form action="/delete/{{product.id}}/" method="post">
+												<input type="submit" value="delete">
+											</form>
+										</a>
+										
+									</li>
+								{% endfor %}
+						</div>
+							</div>
+						</div>
+						<ul class="pagination pagination-sm">
+							{% for number in productList.paginator.page_range %}
+								<li><a href="#">{{number}}</a></li>
+							{% endfor %}
+						</ul>
+					  </div>
+					</div>
+				</div>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-		</div>
+		</div>	
 	</div>
-	<!-- // Submit Ad -->
+	<!-- // Mobiles -->
+	<!--footer section start-->		
+		
+        <!--footer section end-->
 </body>
 		<!-- Navigation-JavaScript -->
 			<script src="{% static 'js/classie.js' %}"></script>
@@ -202,4 +257,6 @@
 			</script>
 			<!-- start-smoth-scrolling -->
 		<!-- //here ends scrolling icon -->
+	{% endif %}
+	
 </html>

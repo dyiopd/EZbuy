@@ -1,10 +1,12 @@
 import os
 from django.contrib import auth
+from django.db.models import Q
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth.models import User
 from .models import *
 import django.contrib.auth
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -22,29 +24,101 @@ def signup(request):
     return render(request, 'signup.html/')
 
 
-def mobiles(request, sortid):
+def account(request):
+    username = request.session.get('username', "sign in")
+    user = User.objects.get(username=username)
+    userid = user.id
+    productList = Products.objects.filter(buyer=userid).order_by('productPrice')
+    return render(request, 'account.html/', {'productList': productList, 'username': username})
+
+
+def comments(request):
+    username = request.session.get('username', "sign in")
+    person = request.POST.get('title')
+    user = User.objects.get(username=person)
+    description = request.POST.get('description')
+    userid = user.id
+    comment = Comments(description=description, owner=userid)
+    comment.save()
+    return render(request, 'comments.html', {'username': username})
+
+
+def mobiles(request, pageid, sortid):
     username = request.session.get('username', "sign in")
     # productList = Products.objects.filter(productCategory='1')
-    print(sortid)
 
     # sort
     if sortid == '1':
-        print(sortid)
         productList = Products.objects.filter(productCategory='1').order_by('productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
     if sortid == '0':
         productList = Products.objects.filter(productCategory='1').order_by('-productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
 
-    return render(request, "mobiles.html/", {'productList': productList, 'username': username})
+    return render(request, "mobiles.html/", {'productList': page, 'username': username})
 
 
-def electronics(request):
+def electronics(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-    return render(request, 'electronics-appliances.html/')
+
+    if sortid == '1':
+        productList = Products.objects.filter(productCategory='2').order_by('productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+    if sortid == '0':
+        productList = Products.objects.filter(productCategory='2').order_by('-productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+
+    return render(request, "electronics-appliances.html/", {'productList': page, 'username': username})
+
+
+def bikes(request, pageid, sortid):
+    username = request.session.get('username', "sign in")
+
+    if sortid == '1':
+        productList = Products.objects.filter(productCategory='3').order_by('productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+    if sortid == '0':
+        productList = Products.objects.filter(productCategory='3').order_by('-productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+
+    return render(request, "bikes.html/", {'productList': page, 'username': username})
+
+
+def books(request, pageid, sortid):
+    username = request.session.get('username', "sign in")
+
+    if sortid == '1':
+        productList = Products.objects.filter(productCategory='4').order_by('productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+    if sortid == '0':
+        productList = Products.objects.filter(productCategory='4').order_by('-productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+
+    return render(request, "books.html/", {'productList': page, 'username': username})
 
 
 def post(request):
     username = request.session.get('username', "sign in")
     return render(request, 'post.html/', {'username': username})
+
+
+def single(request, productid):
+    username = request.session.get('username', "sign in")
+    product = Products.objects.get(id=productid)
+    return render(request, 'singles.html/', {'product': product, 'username': username})
+
+
+def categories(request):
+    username = request.session.get('username', "sign in")
+    return render(request, 'categories.html/', {'product': product, 'username': username})
 
 
 # redirect
@@ -55,7 +129,11 @@ def redirectSignup(request):
     return HttpResponseRedirect('/signup')
 
 
-def redirectSignin(request):
+def redirectsSignin(request):
+    return HttpResponseRedirect('/signin')
+
+
+def redirectSignin(request, pageid, sortid):
     return HttpResponseRedirect('/signin')
 
 
@@ -67,11 +145,19 @@ def redirectsIndex(request, sortid):
     return HttpResponseRedirect('/index')
 
 
+def redirectsIndex(request, pageid, sortid):
+    return HttpResponseRedirect('/index')
+
+
 def redirectMobile(request):
     return HttpResponseRedirect('/mobiles')
 
 
 def redirectPost(request):
+    return HttpResponseRedirect('/post')
+
+
+def redirectPosts(request, pageid, sortid):
     return HttpResponseRedirect('/post')
 
 
@@ -119,6 +205,52 @@ def logouts(request, sortid):
     return HttpResponseRedirect('/index')
 
 
+def logouts(request, pageid, sortid):
+    django.contrib.auth.logout(request),
+    return HttpResponseRedirect('/index')
+
+
+def search(request, pageid, sortid):
+    username = request.session.get('username', "sign in")
+    if request.method == 'GET':
+        keywords = request.GET.get('Search')  # get the search key words
+        if sortid == '1':
+            productList = Products.objects.filter(Q(productName__icontains=keywords)
+                                                  | Q(productInformation__icontains=keywords)).order_by('productPrice')
+            paginator = Paginator(productList, 2)
+            page = paginator.page(pageid)
+        if sortid == '0':
+            productList = Products.objects.filter(Q(productName__icontains=keywords)
+                                                  | Q(productInformation__icontains=keywords)).order_by('-productPrice')
+            paginator = Paginator(productList, 2)
+            page = paginator.page(pageid)
+
+        return render(request, "categories.html/", {'productList': page, 'username': username})
+
+        # productList = Products.objects.filter(Q(productName__icontains=keywords)
+        #                                       | Q(productInformation__icontains=keywords))
+        #
+        #
+        # return render(request, 'categories.html/', {'productList': productList, 'username': username})
+
+
+# search products in specific product page
+# def searchProducts(request):
+#     if request.method == 'GET':
+#         keywords = request.GET.get('Search')  # get the search key words
+#         productList = Products.objects.filter(Q(productName__icontains=keywords)
+#                                               | Q(productInformation__icontains=keywords))
+#         return render(request, 'categories.html/', {'productList': productList})
+
+
+def redirectSingle(request, sortid, productid):
+    return HttpResponseRedirect('/single')
+
+
+def redirectSingle(request):
+    return HttpResponseRedirect('/single')
+
+
 # create a product when user post an item through post.html
 def category(request):
     username = request.session.get('username', "sign in")
@@ -130,6 +262,15 @@ def category(request):
                        productCategory=productCategory, productImage=request.FILES.get('img'), buyer=request.user)
     product.save()
     return render(request, 'post.html/', {'username': username})
+
+
+def delete(request, productid):
+    username = request.session.get('username', "sign in")
+    user = User.objects.get(username=username)
+    userid = user.id
+    Products.objects.get(id=productid).delete()
+    productList = Products.objects.filter(buyer=userid).order_by('productPrice')
+    return render(request, 'account.html/', {'productList': productList, 'username': username})
 
 # def main(request):
 #     username = request.session.get('name', "log in")

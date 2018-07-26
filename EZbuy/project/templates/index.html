@@ -15,15 +15,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //meta tags -->
-<!---<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--->
 </head>
 <body>	
-		<!-- Navigation -->
 
-		<!-- //Navigation -->
-	<!-- header -->
 	<header>
 		<div class="w3ls-header"><!--header-one--> 
 			<div class="w3ls-header-right">
@@ -34,7 +28,7 @@
 						</li>
 					{% else %}
 						<li class="dropdown head-dpdn">
-							<a  aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
+							<a  href="/account/" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
 						</li>
 					{% endif %}
 
@@ -64,22 +58,9 @@
 					<h1><a href="index/"><span>EZ</span>buy</a></h1>
 				</div>
 				<div class="agileits_search">
-					<form action="#" method="post">
+					<form action="/search/1/0/" method="GET">
+						{% csrf_token %}
 						<input name="Search" type="text" placeholder="How can we help you today?" required="" />
-						<select id="agileinfo_search" name="agileinfo_search" required="">
-							<option value="">All Categories</option>
-							<option value="Mobiles">Mobiles</option>
-							<option value="Electronics & Appliances">Electronics & Appliances</option>
-							<option value="Cars">Cars</option>
-							<option value="Bikes">Bikes</option>
-							<option value="Furnitures">Furnitures</option>
-							<option value="Books, Sports & Hobbies">Books, Sports & Hobbies</option>
-							<option value="Fashion">Fashion</option>
-							<option value="Kids">Kids</option>
-							<option value="Services">Services</option>
-							<option value="Jobs">Jobs</option>
-							<option value="Real Estates">Real Estates</option>
-						</select>
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
@@ -87,24 +68,21 @@
 				{% if username == "sign in" %}
 						
 				{% else %}
-					<a class="post-w3layouts-ad" href="post/">Post your items</a>
+					<a class="post-w3layouts-ad" href="/post/">Post your items</a>
 				{% endif %}
 				</div>	
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</header>
-	<!-- //header -->
-	<!-- Slider -->
-		<!-- //Slider -->
-		<!-- content-starts-here -->
+
 		<div class="main-content">
 			<div class="w3-categories">
 				<h3>Browse Categories</h3>
 				<div class="container">
 					<div class="col-md-3">
 						<div class="focus-grid w3layouts-boder1">
-							<a class="btn-8" href="mobiles/0/">
+							<a class="btn-8" href="/mobiles/1/0/">
 								<div class="focus-border">
 									<div class="focus-layout">
 										<div class="focus-image"><i class="fa fa-mobile"></i></div>
@@ -116,7 +94,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="focus-grid w3layouts-boder2">	
-						<a class="btn-8" href="electronics/">
+						<a class="btn-8" href="/electronics/1/0/">
 							<div class="focus-border">
 								<div class="focus-layout">
 									<div class="focus-image"><i class="fa fa-laptop"></i></div>
@@ -126,21 +104,10 @@
 						</a>
 					</div>
 					</div>
-					<!-- <div class="col-md-3">
-					<div class="focus-grid w3layouts-boder3">
-						<a class="btn-8" href="categories.html#parentVerticalTab3">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-car"></i></div>
-									<h4 class="clrchg">Cars</h4>
-								</div>
-							</div>
-						</a>
-					</div>	
-					</div> -->
+
 					<div class="col-md-3">
 					<div class="focus-grid w3layouts-boder4">
-						<a class="btn-8" href="categories.html#parentVerticalTab4">
+						<a class="btn-8" href="/bikes/1/0/">
 							<div class="focus-border">
 								<div class="focus-layout">
 									<div class="focus-image"><i class="fa fa-motorcycle"></i></div>
@@ -150,33 +117,9 @@
 						</a>
 					</div>	
 					</div>
-					<!-- <div class="col-md-3">
-					<div class="focus-grid w3layouts-boder5">
-						<a class="btn-8" href="categories.html#parentVerticalTab5">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-wheelchair"></i></div>
-									<h4 class="clrchg">Furnitures</h4>
-								</div>
-							</div>
-						</a>
-					</div>
-					</div> -->
-					<!-- <div class="col-md-3">
-					<div class="focus-grid w3layouts-boder6">
-						<a class="btn-8" href="categories.html#parentVerticalTab6">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-paw"></i></div>
-									<h4 class="clrchg">Pets</h4>
-								</div>
-							</div>
-						</a>
-					</div>	
-					</div> -->
 					<div class="col-md-3">
 					<div class="focus-grid w3layouts-boder7">
-						<a class="btn-8" href="categories.html#parentVerticalTab7">
+						<a class="btn-8" href="/books/1/0/">
 							<div class="focus-border">
 								<div class="focus-layout">
 									<div class="focus-image"><i class="fa fa-book"></i></div>
@@ -186,87 +129,16 @@
 						</a>
 					</div>	
 					</div>
-					<!-- <div class="col-md-3">
-					<div class="focus-grid w3layouts-boder8">
-						<a class="btn-8" href="categories.html#parentVerticalTab8">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-asterisk"></i></div>
-									<h4 class="clrchg">Fashion</h4>
-								</div>
-							</div>
-						</a>
-					</div>	
-					</div>
-					<div class="col-md-3">
-					<div class="focus-grid w3layouts-boder9">
-						<a class="btn-8" href="categories.html#parentVerticalTab9">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-gamepad"></i></div>
-									<h4 class="clrchg">Kids</h4>
-								</div>
-							</div>
-						</a>
-					</div>	
-					</div>
-					<div class="col-md-3">
-					<div class="focus-grid w3layouts-boder10">
-						<a class="btn-8" href="categories.html#parentVerticalTab10">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-shield"></i></div>
-									<h4 class="clrchg">Services</h4>
-								</div>
-							</div>
-						</a>
-					</div>
-					</div>
-					<div class="col-md-3">
-					<div class="focus-grid w3layouts-boder11">
-						<a class="btn-8" href="categories.html#parentVerticalTab11">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-at"></i></div>
-									<h4 class="clrchg">Jobs</h4>
-								</div>
-							</div>
-						</a>
-					</div>
-					</div>
-					<div class="col-md-3">
-					<div class="focus-grid w3layouts-boder12">
-						<a class="btn-8" href="categories.html#parentVerticalTab12">
-							<div class="focus-border">
-								<div class="focus-layout">
-									<div class="focus-image"><i class="fa fa-home"></i></div>
-									<h4 class="clrchg">Real Estate</h4>
-								</div>
-							</div>
-						</a>
-					</div>
-					</div> -->
+
 					<div class="clearfix"></div>
 				</div>
-			</div>
-			
-		<!-- here stars scrolling icon -->
+			</div>			
 			<script type="text/javascript">
 				$(document).ready(function() {
-					/*
-						var defaults = {
-						containerID: 'toTop', // fading element id
-						containerHoverID: 'toTopHover', // fading element hover id
-						scrollSpeed: 1200,
-						easingType: 'linear' 
-						};
-					*/
-										
 					$().UItoTop({ easingType: 'easeOutQuart' });
 										
 					});
 			</script>
-			<!-- start-smoth-scrolling -->
 			<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
 			<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
 			<script type="text/javascript">
@@ -277,7 +149,6 @@
 					});
 				});
 			</script>
-			<!-- start-smoth-scrolling -->
-		<!-- //here ends scrolling icon -->
+
 </body>		
 </html>

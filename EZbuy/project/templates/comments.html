@@ -116,13 +116,13 @@
 		<div class="container">
 			<h2 class="w3-head">Make a comment for other users</h2>
 			<div class="post-ad-form">
-				<form action="/comments/" method="POST" enctype="multipart/form-data">
+				<form action="/comment/" method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 					
 					<div class="clearfix"></div>
 
 					<label>Username</label>
-					<input name="title" type="text" class="phone" placeholder="username of the person you want to make comments">
+					<input name="title" type="text" class="phone" placeholder=" ">
 					<div class="clearfix"></div>
 
 					<label>Your comments </label>

@@ -151,8 +151,8 @@ var elem=$('#container ul');
 				<div class="side-bar col-md-3">
 					<div class="search-hotel">
 					<h3 class="agileits-sear-head">Name contains</h3>
-					<form>
-						<input type="text" value="Product name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+					<form action="/search/1/0/" method="GET">
+						<input name="Search" type="text" value="Product name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
 						<input type="submit" value=" ">
 					</form>
 				</div>
@@ -160,7 +160,13 @@ var elem=$('#container ul');
 				<!-- <div class="side-bar col-md-3"> -->
 					<div class="search-hotel">
 						<h3 class="agileits-sear-head">Comments you got</h3>
-						<ol>
+							{% for comment in comments %}
+								<li>
+									<h5>{{comment.description}}</h5>
+								</li>		
+							{% endfor %}
+
+						<!-- <ol>
 								<li>
 									<h5> a very nice shopping experience with this sellers, worth choice and want to buy this again without emotions</h5>
 								</li>
@@ -168,7 +174,7 @@ var elem=$('#container ul');
 									<a href="/mobiles/{{number}}/1/">price from low to high</a>
 								</li>
 
-						</ul>
+						</ul> -->
 					</div>
 				 <!-- </div> -->
 				<div class="clearfix"></div>

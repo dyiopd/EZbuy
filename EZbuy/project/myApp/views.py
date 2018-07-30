@@ -29,30 +29,33 @@ def account(request):
     user = User.objects.get(username=username)
     userid = user.id
     productList = Products.objects.filter(buyer=userid).order_by('productPrice')
-    return render(request, 'account.html/', {'productList': productList, 'username': username})
+    comments = Comments.objects.filter(owner=userid)
+    return render(request, 'account.html/', {'productList': productList, 'username': username, 'comments': comments})
 
 
 def comments(request):
     username = request.session.get('username', "sign in")
-    person = request.POST.get('title')
-    user = User.objects.get(username=person)
-    description = request.POST.get('description')
-    userid = user.id
-    comment = Comments(description=description, owner=userid)
-    comment.save()
     return render(request, 'comments.html', {'username': username})
+
+
+def comment(request):
+    username = request.POST.get('title')
+    user = User.objects.get(username=username)
+    description = request.POST.get('description')
+    comment = Comments(description=description, owner=user)
+    comment.save()
+    return HttpResponseRedirect('/account')
 
 
 def mobiles(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-    # productList = Products.objects.filter(productCategory='1')
 
     # sort
-    if sortid == '1':
+    if sortid == '1':   # sort from high to low
         productList = Products.objects.filter(productCategory='1').order_by('productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
-    if sortid == '0':
+    if sortid == '0':   # sort from low to high
         productList = Products.objects.filter(productCategory='1').order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
@@ -227,21 +230,6 @@ def search(request, pageid, sortid):
 
         return render(request, "categories.html/", {'productList': page, 'username': username})
 
-        # productList = Products.objects.filter(Q(productName__icontains=keywords)
-        #                                       | Q(productInformation__icontains=keywords))
-        #
-        #
-        # return render(request, 'categories.html/', {'productList': productList, 'username': username})
-
-
-# search products in specific product page
-# def searchProducts(request):
-#     if request.method == 'GET':
-#         keywords = request.GET.get('Search')  # get the search key words
-#         productList = Products.objects.filter(Q(productName__icontains=keywords)
-#                                               | Q(productInformation__icontains=keywords))
-#         return render(request, 'categories.html/', {'productList': productList})
-
 
 def redirectSingle(request, sortid, productid):
     return HttpResponseRedirect('/single')
@@ -260,6 +248,7 @@ def category(request):
     productInformation = request.POST.get('description')
     product = Products(productName=productName, productPrice=productPrice, productInformation=productInformation,
                        productCategory=productCategory, productImage=request.FILES.get('img'), buyer=request.user)
+    product1 = Products()
     product.save()
     return render(request, 'post.html/', {'username': username})
 
@@ -271,17 +260,3 @@ def delete(request, productid):
     Products.objects.get(id=productid).delete()
     productList = Products.objects.filter(buyer=userid).order_by('productPrice')
     return render(request, 'account.html/', {'productList': productList, 'username': username})
-
-# def main(request):
-#     username = request.session.get('name', "log in")
-#     return render(request, 'main.html', {'username': username})
-#
-#
-# def login(request):
-#     return render(request, 'login.html')
-#
-#
-# def showmain(request):
-#     username = request.POST.get('username')
-#     request.session['name'] = username
-#     return HttpResponseRedirect('/main')

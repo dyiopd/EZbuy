@@ -119,6 +119,10 @@ urlpatterns = (
 
     url(r'^comments/$', views.comments),
 
+    url(r'^comment/$', views.comment),
+
+    url(r'^comment/$', views.comment),
+
     # electronics urls
     url(r'^index/electronics/(\d+)/index/$', views.redirectsIndex),
 

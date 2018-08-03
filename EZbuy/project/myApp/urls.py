@@ -3,13 +3,23 @@ from . import views
 
 urlpatterns = (
 
+    url(r'^cha/(\D+)/$', views.cha),
+
+    url(r'^error/$', views.error),
+
     url(r'^$', views.redirectIndex),
 
     # url(r'^categories/$', views.categories),
 
     url(r'^search/$', views.search),
 
+    url(r'^search/(\d+)/(\d+)/(\D+)$', views.categories),
+
+    url(r'^categories/(\d+)/(\d+)/(\D+)$', views.categories),
+
     url(r'^search/(\d+)/(\d+)/$', views.search),
+
+    url(r'^search/(\d+)/(\d+)/$', views.categories),
 
     # url to index page
     url(r'^index/$', views.index),

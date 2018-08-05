@@ -9,14 +9,6 @@ import django.contrib.auth
 from django.core.paginator import Paginator
 
 
-# Create your views here.
-
-def cha(request, key):
-    print(key)
-    username = request.session.get('username', "sign in")
-    return render(request, 'error.html/', {'username': username})
-
-
 # Display a error page
 #  This page will be shown if you miss something when you try to post your item
 #  @return error.html An error information
@@ -102,7 +94,7 @@ def comment(request):
 #  @note For sort id, 1 means sort by price from high to low. 2 means sort by price from low to high.
 def mobiles(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-
+    
     # sort
     if sortid == '1':  # sort from high to low
         productList = Products.objects.filter(productCategory='1').order_by('productPrice')
@@ -112,7 +104,7 @@ def mobiles(request, pageid, sortid):
         productList = Products.objects.filter(productCategory='1').order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
-
+    
     return render(request, "mobiles.html/", {'productList': page, 'username': username, 'sortid': sortid})
 
 
@@ -128,7 +120,7 @@ def mobiles(request, pageid, sortid):
 #  @note For sort id, 1 means sort by price from high to low. 2 means sort by price from low to high.
 def electronics(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-
+    
     if sortid == '1':
         productList = Products.objects.filter(productCategory='2').order_by('productPrice')
         paginator = Paginator(productList, 2)
@@ -137,7 +129,7 @@ def electronics(request, pageid, sortid):
         productList = Products.objects.filter(productCategory='2').order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
-
+    
     return render(request, "electronics-appliances.html/",
                   {'productList': page, 'username': username, 'sortid': sortid})
 
@@ -154,7 +146,7 @@ def electronics(request, pageid, sortid):
 #  @note For sort id, 1 means sort by price from high to low. 2 means sort by price from low to high.
 def bikes(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-
+    
     if sortid == '1':
         productList = Products.objects.filter(productCategory='3').order_by('productPrice')
         paginator = Paginator(productList, 2)
@@ -163,7 +155,7 @@ def bikes(request, pageid, sortid):
         productList = Products.objects.filter(productCategory='3').order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
-
+    
     return render(request, "bikes.html/", {'productList': page, 'username': username, 'sortid': sortid})
 
 
@@ -179,7 +171,7 @@ def bikes(request, pageid, sortid):
 #  @note For sort id, 1 means sort by price from high to low. 2 means sort by price from low to high.
 def books(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-
+    
     if sortid == '1':
         productList = Products.objects.filter(productCategory='4').order_by('productPrice')
         paginator = Paginator(productList, 2)
@@ -188,7 +180,7 @@ def books(request, pageid, sortid):
         productList = Products.objects.filter(productCategory='4').order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
-
+    
     return render(request, "books.html/", {'productList': page, 'username': username, 'sortid': sortid})
 
 
@@ -227,20 +219,32 @@ def single(request, productid):
 #  @return sortid The way you want to sort
 #  @return keywords The characters that you entered in search section
 def categories(request, pageid, sortid, keywords):
+    print('keyword', keywords)
     username = request.session.get('username', "sign in")
     if sortid == '1':
-        productList = Products.objects.filter(Q(productName__icontains=keywords)
-                                              | Q(productInformation__icontains=keywords)).order_by('productPrice')
+        productList = Products.objects.filter(Q(productName__icontains=keywords)| Q(productInformation__icontains=keywords)).order_by('productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
     if sortid == '0':
-        productList = Products.objects.filter(Q(productName__icontains=keywords)
-                                              | Q(productInformation__icontains=keywords)).order_by('-productPrice')
+        productList = Products.objects.filter(Q(productName__icontains=keywords)| Q(productInformation__icontains=keywords)).order_by('-productPrice')
         paginator = Paginator(productList, 2)
         page = paginator.page(pageid)
 
+    return render(request, "categories.html/",{'productList': page, 'username': username, 'sortid': sortid, 'keyword': keywords})
+
+
+def allcategory(request, pageid, sortid):
+    username = request.session.get('username', "sign in")
+    if sortid == '1':
+        productList = Products.objects.all().order_by('productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
+    if sortid == '0':
+        productList = Products.objects.all().order_by('-productPrice')
+        paginator = Paginator(productList, 2)
+        page = paginator.page(pageid)
     return render(request, "categories.html/",
-                  {'productList': page, 'username': username, 'sortid': sortid, 'keyword': keywords})
+                  {'productList': page, 'username': username, 'sortid': sortid})
 
 
 # redirect
@@ -316,7 +320,7 @@ def register(request):
     password = request.POST.get('Password')
     email = request.POST.get('Email')
     registerAdd = User.objects.create_user(username=username, password=password, email=email)
-
+    request.session['username'] = username
     if not registerAdd:  # didn't register
         return render(request, 'kids.html/')
     else:  # register successfully
@@ -331,7 +335,7 @@ def login(request):
     username = request.POST.get('Name')
     password = request.POST.get('Password')
     re = auth.authenticate(username=username, password=password)
-
+    
     if re is not None:  # if username and password matches the data in database
         auth.login(request, re)  # login successfully
         request.session['username'] = username
@@ -378,20 +382,34 @@ def logouts(request, pageid, sortid):
 def search(request, pageid, sortid):
     username = request.session.get('username', "sign in")
     if request.method == 'GET':
-        keywords = request.GET.get('Search')  # get the search key words
+        # if not request.GET.get('Search') == " ":
+        #     keywords = request.GET.get('Search').replace(" ", "")  # get the search key words
+        #     print('keyword', keywords, 'key')
+        # else:
+        #     keywords = request.GET.get('Search').replace(' ', 'Product name...')
+        
+        if request.GET.get('Search')[0] != " ":
+            keywords = request.GET.get('Search')  # get the search key words
+        
+        # if request.GET.get('Search')[0] == " " and request.GET.get('Search')[1] != " ":
+        #     keywords = request.GET.get('Search').replace(" ", "")
+        # if request.GET.get('Search').strip()=="":
+        if request.GET.get('Search')[0] == " ":
+            keywords = request.GET.get('Search').replace(" ", "")
+            productList = Products.objects.all()
+            paginator = Paginator(productList, 2)
+            page = paginator.page(pageid)
+            return HttpResponseRedirect("/allcategory/1/0/", {'productList': page, 'username': username, 'sortid': sortid})
         if sortid == '1':
-            productList = Products.objects.filter(Q(productName__icontains=keywords)
-                                                  | Q(productInformation__icontains=keywords)).order_by('productPrice')
+            productList = Products.objects.filter(Q(productName__icontains=keywords)  | Q(productInformation__icontains=keywords)).order_by('productPrice')
             paginator = Paginator(productList, 2)
             page = paginator.page(pageid)
         if sortid == '0':
-            productList = Products.objects.filter(Q(productName__icontains=keywords)
-                                                  | Q(productInformation__icontains=keywords)).order_by('-productPrice')
+            productList = Products.objects.filter(Q(productName__icontains=keywords)| Q(productInformation__icontains=keywords)).order_by('-productPrice')
             paginator = Paginator(productList, 2)
             page = paginator.page(pageid)
 
-        return render(request, "categories.html/", {'productList': page, 'username': username, 'keyword': keywords,
-                                                    'sortid': sortid})
+    return render(request, "categories.html/", {'productList': page, 'username': username, 'keyword': keywords,'sortid': sortid})
 
 
 # Redirect to single page
@@ -415,15 +433,17 @@ def redirectSingle(request):
 #  @not if you miss something information about your product, it will give you a error message
 # create a product when user post an item through post.html
 def category(request):
-    username = request.session.get('username', "sign in")
+    username = request.session.get('username')
+    user = User.objects.get(username=username)
     productCategory = request.POST.get('selects')
     productName = request.POST.get('title')
+    
     productPrice = request.POST.get('price')
     productInformation = request.POST.get('description')
     if request.FILES.get('img') and request.POST.get('selects') and request.POST.get('title') and \
-            request.POST.get('price') and request.POST.get('description'):
+        request.POST.get('price') and  "-" not in request.POST.get('price') and request.POST.get('description'):
         product = Products(productName=productName, productPrice=productPrice, productInformation=productInformation,
-                           productCategory=productCategory, productImage=request.FILES.get('img'), buyer=request.user)
+                           productCategory=productCategory, productImage=request.FILES.get('img'), buyer=user)
         product.save()
         return HttpResponseRedirect('/index', {'username': username})
     else:
@@ -442,3 +462,4 @@ def delete(request, productid):
     Products.objects.get(id=productid).delete()
     productList = Products.objects.filter(buyer=userid).order_by('productPrice')
     return render(request, 'account.html/', {'productList': productList, 'username': username})
+

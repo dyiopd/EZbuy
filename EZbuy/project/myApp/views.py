@@ -440,8 +440,7 @@ def category(request):
     
     productPrice = request.POST.get('price')
     productInformation = request.POST.get('description')
-    if request.FILES.get('img') and request.POST.get('selects') and request.POST.get('title') and \
-        request.POST.get('price') and  "-" not in request.POST.get('price') and request.POST.get('description'):
+    if  "-" not in request.POST.get('price'):
         product = Products(productName=productName, productPrice=productPrice, productInformation=productInformation,
                            productCategory=productCategory, productImage=request.FILES.get('img'), buyer=user)
         product.save()

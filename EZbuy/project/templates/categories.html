@@ -161,12 +161,21 @@ var elem=$('#container ul');
 					<div class="search-hotel">
 						<h3 class="agileits-sear-head">sort</h3>
 						<ol>
-								<li>
+                            {% if not keyword %}
+                                <li>
+									<a href="/allcategory/{{productList.number}}/0">price from high to low</a>
+								</li>
+                                <li>
+									<a href="/allcategory/{{productList.number}}/1">price from low to low</a>
+								</li>
+                            {% else %}
+                                <li>
 									<a href="/categories/{{productList.number}}/0/{{ keyword }}">price from high to low</a>
 								</li>
-								<li>
+                                <li>
 									<a href="/categories/{{productList.number}}/1/{{ keyword }}">price from low to high</a>
 								</li>
+                            {% endif %}
 						</ul>
 					</div>
 				 <!-- </div> -->
@@ -203,7 +212,12 @@ var elem=$('#container ul');
 						</div>
 						<ul class="pagination pagination-sm">
 							{% for number in productList.paginator.page_range %}
-								<li><a href="/categories/{{number}}/{{ sortid }}/{{ keyword }}">{{number}}</a></li>
+                                {% if  not keyword %}
+                                    <li><a href="/allcategory/{{number}}/{{ sortid }}">{{number}}</a></li>
+                                {% else %}
+                                    <li><a href="/categories/{{number}}/{{ sortid }}/{{ keyword }}">{{number}}</a></li>
+                                {% endif %}
+
 							{% endfor %}
 						</ul>
 					  </div>

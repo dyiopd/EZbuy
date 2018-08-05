@@ -60,7 +60,7 @@
 						</li>
 					{% else %}
 						<li class="dropdown head-dpdn">
-							<a  aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
+							<a  href="/account/" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{username}}</a>
 						</li>
 					{% endif %}
 
@@ -122,11 +122,11 @@
 					<div class="clearfix"></div>
 
 					<label>Username</label>
-					<input name="title" type="text" class="phone" placeholder=" ">
+					<input name="title" type="text" required="required" class="phone" placeholder=" ">
 					<div class="clearfix"></div>
 
 					<label>Your comments </label>
-					<textarea name="description" class="mess" placeholder="Write down your comments here"></textarea>
+					<textarea name="description" required="required" class="mess" placeholder="Write down your comments here"></textarea>
 					<div class="clearfix"></div>
 
 

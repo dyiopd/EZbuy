@@ -162,7 +162,7 @@ var elem=$('#container ul');
 						<h3 class="agileits-sear-head">sort</h3>
 						<ol>
 								<li>
-									<a href="/books/{{productList.number}}/0/">price from low to high</a>
+									<a href="/books/{{productList.number}}/0/">price from high to low</a>
 								</li>
 								<li>
 									<a href="/books/{{productList.number}}/1/">price from low to high</a>
@@ -203,7 +203,7 @@ var elem=$('#container ul');
 						</div>
 						<ul class="pagination pagination-sm">
 							{% for number in productList.paginator.page_range %}
-								<li><a href="/index/books/{{number}}/0/">{{number}}</a></li>
+								<li><a href="/index/books/{{number}}/{{ sortid }}/">{{number}}</a></li>
 							{% endfor %}
 						</ul>
 					  </div>

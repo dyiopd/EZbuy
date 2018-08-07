@@ -335,7 +335,7 @@ def register(request):
     registerAdd = User.objects.create_user(username=username, password=password, email=email)
     request.session['username'] = username
     if not registerAdd:  # didn't register
-        return render(request, 'kids.html/')
+        return render(request, 'index.html/')
     else:  # register successfully
         request.session['username'] = username
         return HttpResponseRedirect('/index')

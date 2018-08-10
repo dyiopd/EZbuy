@@ -75,17 +75,24 @@ def comments(request):
 #  @return '/account' Redirect to a account html web page
 def comment(request):
     username = request.POST.get('title')
-    try:
-        user = models.User.objects.get(username=username)
-    except:
-        return render(request, 'userNotFound.html/')
-    # if User.objects.get(username=username) is None:
+    # try:
+    #     user = models.User.objects.get(username=username)
+    # except:
     #     return render(request, 'userNotFound.html/')
-    description = request.POST.get('description')
-    acomment = Comments(description=description, owner=user)
-    acomment.save()
-    return HttpResponseRedirect('/account')
 
+    if User.objects.filter(username=username):
+        user = User.objects.get(username=username)
+        description = request.POST.get('description')
+        acomment = Comments(description=description, owner=user)
+        acomment.save()
+        return HttpResponseRedirect('/account')
+
+    # user = User.objects.get(username=username)
+    # description = request.POST.get('description')
+    # acomment = Comments(description=description, owner=user)
+    # acomment.save()
+    # return HttpResponseRedirect('/account')
+    return render(request, 'userNotFound.html/')
 
 # Go to mobiles web page.
 #  This web page will display all mobiles products, and the current username on the right upper conner.
@@ -99,7 +106,9 @@ def comment(request):
 #  @note For sort id, 1 means sort by price from high to low. 2 means sort by price from low to high.
 def mobiles(request, pageid, sortid):
     username = request.session.get('username', "sign in")
-
+    productList = Products.objects.filter(productCategory='1').order_by('productPrice')
+    paginator = Paginator(productList, 2)
+    page = paginator.page(pageid)
     # sort
     if sortid == '1':  # sort from high to low
         productList = Products.objects.filter(productCategory='1').order_by('productPrice')
@@ -218,7 +227,7 @@ def single(request, productid):
 #  @param pageid The page number you currently in
 #  @param sorid The way you want to sort.
 #  @param keywords The characters that you entered in search section
-#  @return books.html A books html page
+#  @return categories.html A category html page
 #  @return page Stores all result product in specific page
 #  @return username The current user
 #  @return sortid The way you want to sort
@@ -240,7 +249,16 @@ def categories(request, pageid, sortid, keywords):
     return render(request, "categories.html/",
                   {'productList': page, 'username': username, 'sortid': sortid, 'keyword': keywords})
 
-
+# Go to categories web page.
+#  This web page will be used when user use search function and enter a whitespace as a keyword,
+#  on this page, it will display all products in our database.
+#  In this web page, you can search products, sort products by price.
+#  @param pageid The page number you currently in
+#  @param sorid The way you want to sort.
+#  @return categories.html A category html page
+#  @return page Stores all result product in specific page
+#  @return username The current user
+#  @return sortid The way you want to sort
 def allcategory(request, pageid, sortid):
     username = request.session.get('username', "sign in")
     if sortid == '1':
@@ -329,7 +347,7 @@ def register(request):
     password = request.POST.get('Password')
     email = request.POST.get('Email')
 
-    if User.objects.get(username=username):
+    if User.objects.filter(username=username):
         return render(request, 'userExist.html/')
 
     registerAdd = User.objects.create_user(username=username, password=password, email=email)
